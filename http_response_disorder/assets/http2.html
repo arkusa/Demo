@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTTP2 一个TCP但是在HTTP实现了并发的处理 响应顺序也是无法保证的</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.js"></script>
+</head>
+<body>
+  <h2 style="text-align: center">HTTP2 一个TCP但是在HTTP实现了并发的处理 响应顺序也是无法保证的</h2>
+
+  <pre style="text-align: center">
+
+    下面有一个可以点击的button按钮
+    以及一个显示count的&ltdiv /&gt
+
+    每次点击会向server端发送一个请求, 且++
+    请求在(count % 3) * 1000 ms后得到响应, 会将这个count返回然后渲染到另外的&ltdiv /&gt上
+    多次点击会发现 count 和response_count的内容可能不一致 (尤其是3的整数倍)
+  </pre>
+
+  <section id="un_handler" style="text-align: center">
+    <h4 style="text-align: center">没经过处理的, 模拟响应乱序UI异常</h4>
+    <div style="text-align: center">
+      <span>count: </span>   
+      <span class="count"></span>   
+    </div>
+
+    <div style="text-align: center">
+      <span>response_count: </span>   
+      <span class="response_count"></span>   
+    </div>
+
+    <button class="button">自增(响应乱序 UI错误)</button>
+  </section>
+
+  <section id="handler" style="text-align: center">
+    <h4 style="text-align: center">经过处理后, 模拟响应乱序UI无异常</h4>
+    <div style="text-align: center">
+      <span>count: </span>   
+      <span class="count"></span>   
+    </div>
+
+    <div style="text-align: center">
+      <span>response_count: </span>   
+      <span class="response_count"></span>   
+    </div>
+
+    <button class="button">自增(响应乱序 UI正确)</button>
+  </section>
+
+  <script src="https://localhost/js/common.js"></script>
+</body>
+</html>
